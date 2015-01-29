@@ -1,4 +1,4 @@
-# React / Flux &nbsp;Starter Kit
+# Watson
 
 [![Build Status](http://img.shields.io/travis/kriasoft/react-starter-kit/master.svg?style=flat)](http://travis-ci.org/kriasoft/react-starter-kit)
 [![Dependency Status](https://david-dm.org/kriasoft/react-starter-kit.svg?style=flat)](https://david-dm.org/kriasoft/react-starter-kit)
@@ -7,7 +7,7 @@
 [![Gitter](http://img.shields.io/badge/chat-online-brightgreen.svg?style=flat)](https://gitter.im/kriasoft/react-starter-kit)
 
 
-### Welcome to Watson – A smart layer that helps you manage github issues.
+## Welcome to Watson – A smart layer that helps you manage github issues.
 
 ### Directory Layout
 
