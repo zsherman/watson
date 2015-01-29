@@ -23,6 +23,11 @@ var fs = require('fs');
 var url = require('url');
 var ReactTools = require('react-tools');
 var argv = require('minimist')(process.argv.slice(2));
+var sourcemaps = require('gulp-sourcemaps');
+var gulpif = require('gulp-if');
+var sass = require('gulp-sass');
+var autoprefixer = require('autoprefixer-core');
+var postcss = require('gulp-postcss');
 
 // Settings
 var DEST = './build';                         // The build output folder
@@ -52,6 +57,34 @@ var pkgs = (function() {
   map(require('./package.json').dependencies);
   return pkgs;
 }());
+
+// ----------------------------
+// Error notification methods
+// ----------------------------
+var beep = function() {
+  var os = require('os');
+  var file = 'gulp/error.wav';
+  if (os.platform() === 'linux') {
+    // linux
+    exec("aplay " + file);
+  } else {
+    // mac
+    console.log("afplay " + file);
+    exec("afplay " + file);
+  }
+};
+var handleError = function(task) {
+  return function(err) {
+    beep();
+    
+      notify.onError({
+        message: task + ' failed, check the logs..',
+        sound: false
+      })(err);
+    
+    gutil.log(gutil.colors.bgRed(task + ' error:'), gutil.colors.red(err));
+  };
+};
 
 // Configure JSX Harmony transform in order to be able
 // require .js files with JSX (see 'pages' task)
@@ -142,20 +175,51 @@ gulp.task('pages', function() {
 });
 
 // CSS style sheets
+// gulp.task('styles', function() {
+//   src.styles = 'src/styles/**/*.{css,sass}';
+//   return gulp.src('src/styles/bootstrap.less')
+//     .pipe($.plumber())
+//     .pipe($.less({
+//       sourceMap: !RELEASE,
+//       sourceMapBasepath: __dirname
+//     }))
+//     .on('error', console.error.bind(console))
+//     .pipe($.autoprefixer({browsers: AUTOPREFIXER_BROWSERS}))
+//     .pipe($.csscomb())
+//     .pipe($.if(RELEASE, $.minifyCss()))
+//     .pipe(gulp.dest(DEST + '/css'))
+//     .pipe($.size({title: 'styles'}));
+// });
+
 gulp.task('styles', function() {
-  src.styles = 'src/styles/**/*.{css,less}';
-  return gulp.src('src/styles/bootstrap.less')
-    .pipe($.plumber())
-    .pipe($.less({
-      sourceMap: !RELEASE,
-      sourceMapBasepath: __dirname
-    }))
-    .on('error', console.error.bind(console))
-    .pipe($.autoprefixer({browsers: AUTOPREFIXER_BROWSERS}))
-    .pipe($.csscomb())
-    .pipe($.if(RELEASE, $.minifyCss()))
-    .pipe(gulp.dest(DEST + '/css'))
-    .pipe($.size({title: 'styles'}));
+  src.styles = 'src/styles/**/*.{css,scss}';
+  return gulp.src('src/styles/main.scss')
+        // sourcemaps + sass + error handling
+        .pipe(gulpif(!RELEASE, sourcemaps.init()))
+        .pipe(sass({
+          sourceComments: !RELEASE,
+          outputStyle: RELEASE ? 'compressed' : 'nested'
+        }))
+        .on('error', handleError('SASS'))
+        // generate .maps
+        .pipe(gulpif(!RELEASE, sourcemaps.write({
+          'includeContent': false,
+          'sourceRoot': '.'
+        })))
+        // autoprefixer
+        .pipe(gulpif(!RELEASE, sourcemaps.init({
+          'loadMaps': true
+        })))
+        .pipe(postcss([autoprefixer({browsers: ['last 2 versions']})]))
+        // we don't serve the source files
+        // so include scss content inside the sourcemaps
+        .pipe(sourcemaps.write({
+          'includeContent': true
+        }))
+        // write sourcemaps to a specific directory
+        // give it a file and save
+        .pipe(gulp.dest(DEST + '/css'))
+        .pipe($.size({title: 'styles'}));
 });
 
 // Bundle
