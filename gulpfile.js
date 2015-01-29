@@ -6,6 +6,11 @@ var del = require('del');
 
 var path = require('path');
 
+var mainBowerFiles = require('main-bower-files');
+var filter = require('gulp-filter');
+var order = require('gulp-order');
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
 
 // Load plugins
 var $ = require('gulp-load-plugins')();
@@ -31,6 +36,18 @@ gulp.task('styles', function () {
         .pipe(gulp.dest('dist/styles'))
         .pipe($.size());
 });
+
+gulp.task('bower-css', function() {
+    console.log(mainBowerFiles());
+    gulp.src(mainBowerFiles())
+        .pipe(filter('*.css'))
+        .pipe(order([
+            'semantic.css',
+            '*'
+        ]))
+        .pipe(concat('vendor.css'))
+        .pipe(gulp.dest('dist/styles'));
+ });
 
 
 // Scripts
@@ -101,7 +118,7 @@ gulp.task('clean', function (cb) {
 
 
 // Bundle
-gulp.task('bundle', ['styles', 'scripts', 'bower'], function(){
+gulp.task('bundle', ['styles', 'bower-css', 'scripts', 'bower'], function(){
     return gulp.src('./app/*.html')
                .pipe($.useref.assets())
                .pipe($.useref.restore())
