@@ -28,7 +28,7 @@
                 <ul class="sidebar-nav">
                     <li class="sidebar-brand">
                         <a href="#">
-                            Start Bootstrap
+                            Watson
                         </a>
                     </li>
                     <li>
@@ -61,49 +61,8 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
-
-                            <table class="table table-striped table-bordered">
-                              <thead>
-                                <tr>
-                                  <th>#</th>
-                                  <th>Table heading</th>
-                                  <th>Table heading</th>
-                                  <th>Table heading</th>
-                                  <th>Table heading</th>
-                                  <th>Table heading</th>
-                                  <th>Table heading</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <th scope="row">1</th>
-                                  <td>Table cell</td>
-                                  <td>Table cell</td>
-                                  <td>Table cell</td>
-                                  <td>Table cell</td>
-                                  <td>Table cell</td>
-                                  <td>Table cell</td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">2</th>
-                                  <td>Table cell</td>
-                                  <td>Table cell</td>
-                                  <td>Table cell</td>
-                                  <td>Table cell</td>
-                                  <td>Table cell</td>
-                                  <td>Table cell</td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">3</th>
-                                  <td>Table cell</td>
-                                  <td>Table cell</td>
-                                  <td>Table cell</td>
-                                  <td>Table cell</td>
-                                  <td>Table cell</td>
-                                  <td>Table cell</td>
-                                </tr>
-                              </tbody>
-                            </table>
+                            <!-- This is where the Watson app is rendered -->
+                            <div id="watson-app"></div>
 
                             <h4>Issues</h4>
                             <ul class="issue-list">
@@ -131,28 +90,6 @@
         <!-- endbuild -->
         <script src="scripts/app.js"></script>
         <script>
-          // get issues and github events from firebase
-          var issues = new Firebase('flickering-inferno-8924.firebaseIO.com/issues');
-          var githubEvents = new Firebase('flickering-inferno-8924.firebaseIO.com/github-events');
-          
-          // grab all items from the issues table on firebase and add them to a list
-          issues.once("value", function(snapshot) {
-            _.forEach(snapshot.val(), function(issue){
-              $('.issue-list').prepend("<li>#"+issue.number+": "+issue.title+"</li>");
-            });
-          }, function (errorObject) {
-            console.log("The read failed: " + errorObject.code);
-          });
-          
-          // grab all items from the issues table on firebase and add them to a list
-          // when new github events are added, add the new item to the github event list created on page load
-          githubEvents.on("child_added", function(snapshot) {
-            var githubEvent = snapshot.val();
-            $('.github-event-list').append("<li>Event Action: "+githubEvent.action+ " (for issue #"+githubEvent.issue.number+": "+githubEvent.issue.title+")</li>");
-          }, function (errorObject) {
-            console.log("The read failed: " + errorObject.code);
-          });
-
           $("#menu-toggle").click(function(e) {
               e.preventDefault();
               $("#wrapper").toggleClass("toggled");
