@@ -41,9 +41,6 @@ gulp.task('bower-css', function() {
     console.log(mainBowerFiles());
     gulp.src(mainBowerFiles())
         .pipe(filter('*.css'))
-        .pipe(order([
-            '*'
-        ]))
         .pipe(concat('vendor.css'))
         .pipe(gulp.dest('dist/styles'));
  });

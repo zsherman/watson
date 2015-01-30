@@ -6,8 +6,11 @@
     "modernizr": "^2.8.3",
     "firebase": "~2.1.2",
     "lodash": "~3.0.0",
-    "semantic-ui": "~1.8.1",
-    "bootstrap-sass-official": "~3.3.3"
+    "bootstrap": "~3.3.2"
   },
-  "overrides": {}
+  "overrides": {
+    "bootstrap": {
+      "main": "dist/css/bootstrap.css"
+    }
+  }
 }
