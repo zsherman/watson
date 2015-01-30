@@ -21,136 +21,64 @@
         <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
+        <div id="wrapper">
 
-        <nav class="ui fixed menu inverted navbar">
-            <a href="" class="brand item">Project Name</a>
-            <a href="" class="active item">Home</a>
-            <a href="" class="item">Features</a>
-            <a href="" class="item">Contact</a>
-        </nav> <!-- end nav -->
+            <!-- Sidebar -->
+            <div id="sidebar-wrapper">
+                <ul class="sidebar-nav">
+                    <li class="sidebar-brand">
+                        <a href="#">
+                            Start Bootstrap
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="#">Shortcuts</a>
+                    </li>
+                    <li>
+                        <a href="#">Overview</a>
+                    </li>
+                    <li>
+                        <a href="#">Events</a>
+                    </li>
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Services</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /#sidebar-wrapper -->
 
-        <main class="ui page grid">
-                <div class="row">
-                    <div class="column">
-                        <h1 class="ui header">Semantic-UI grid examples</h1>
-                        <p>Basic grid layouts to get you familiar with building within the Semantic-UI grid system.</p>
-                        <div class="ui divider"></div>
-                        <h1 class="ui medium header">Three equal columns</h1>
-                        <p>Get three equal-width columns <strong>starting at desktops and scaling to large desktops</strong>. On mobile devices, tablets and below, the columns will automatically stack.</p>
-                        <div class="ui three column grid">
-                            <div class="column column-addon">.column</div>
-                            <div class="column column-addon">.column</div>
-                            <div class="column column-addon">.column</div>
-                        </div>
-                        <h1 class="ui medium header">Three unequal columns</h1>
-                        <p>Get three columns <strong>starting at desktops and scaling to large desktops</strong> of various widths. Remember, grid columns should add up to sixteen for a single horizontal block. More than that, and columns start stacking no matter the viewport.</p>
-                        <div class="ui three column grid">
-                            <div class="four wide column column-addon">.four .wide .column</div>
-                            <div class="eight wide column column-addon">.eight .wide .column</div>
-                            <div class="four wide column column-addon">.four .wide .column</div>
-                        </div>
-                        <h1 class="ui medium header">Two columns</h1>
-                        <p>Get two columns <strong>starting at desktops and scaling to large desktops</strong>.</p>
-                        <div class="ui two column grid">
-                            <div class="ten wide column column-addon">.ten .wide. column</div>
-                            <div class="six wide column column-addon">.six .wide .column</div>
-                        </div>
-                        <h1 class="ui medium header">Full width, single column</h1>
-                        <p>No grid classes are necessary for full-width elements.</p>
-                        <div class="ui section divider"></div>
-                        <div class="ui medium header">Two columns with two nested columns</div>
-                        <p>Per the documentation, nesting is easy—just put a row of columns within an existing column. This gives you two columns starting at desktops and scaling to large desktops, with another two (equal widths) within the larger column.</p>
-                        <p class="m-top-10">At mobile device sizes, tablets and down, these columns and their nested columns will stack.</p>
-                        <div class="ui two column grid">
-                            <div class="ten wide column column-addon">   
-                                .ten .wide .column
-                                <div class="ui two column grid">
-                                    <div class="eight wide column column-addon">.eight .wide .columnn</div>
-                                    <div class="eight wide column column-addon">.eight .wide <div class="column"></div></div>
-                                </div>
-                            </div>
-                            <div class="six wide column column-addon">.six .wide .column</div>
-                        </div>
-                        <div class="ui section divider"></div>
-                        <h1 class="ui medium header">Mixed: mobile and computer</h1>
-                        <p>The Semantic grid system has three tiers of classes: mobile (phones), tablet (tablets), computer (desktops and larger desktops). You can use nearly any combination of these classes to create more dynamic and flexible layouts.</p>
-                        <p class="m-top-10">Breakpoints are 768px and below for mobile, 768-992px for tablet and 992px+ for computer.</p>
-                        <p class="m-top-10">In these cases below, we'd like to recommend you to change size of your viewport or use right devices for responsiveness experience.</p>
-                        <div class="ui grid m-top-10">
-                            <div class="two column computer only row">
-                                <div class="ten wide column column-addon">.ten .wide .column .computer .only</div>
-                                <div class="six wide column column-addon">.six .wide .column .computer .only</div>
-                            </div>
-                            <div class="column mobile only row">
-                                <div class="column column-addon">.column .mobile .only</div>
-                            </div>
-                            <div class="column mobile only row">
-                                <div class="eight wide column column-addon">.eight .wide .column .mobile .only</div>
-                            </div>
-                            <div class="three column computer only row">
-                                <div class="column column-addon">.column .computer .only</div>
-                                <div class="column column-addon">.column .computer .only</div>
-                                <div class="column column-addon">.column .computer .only</div>
-                            </div>
-                            <div class="two column mobile only row">
-                                <div class="column column-addon">.column .mobile .only</div>
-                                <div class="column column-addon">.column .mobile .only</div>
-                            </div>
-                            <div class="column mobile only row">
-                                <div class="eight wide column column-addon">.column .mobile .only</div>
-                            </div>
-                            <div class="two column row">
-                                <div class="column column-addon">.column</div>
-                                <div class="column column-addon">.column</div>
-                            </div>
-                        </div>
-                        <div class="ui section divider"></div>
-                        <h1 class="ui medium header">Mixed: mobile, tablet, and computer</h1>
-                        <div class="ui grid">
-                            <div class="two column computer only row">
-                                <div class="ten wide column column-addon">.ten .wide .column .computer .only</div>
-                                <div class="six wide column column-addon">.six .wide .column .computer .only</div>
-                            </div>
-                            <div class="two column tablet only row">
-                                <div class="column column-addon">.column .tablet .only</div>
-                                <div class="column column-addon">.column .tablet .only</div>
-                            </div>
-                            <div class="column mobile only row">
-                                <div class="column column-addon">.column .mobile .only</div>
-                            </div>
-                            <div class="column mobile only row">
-                                <div class="eight wide column column-addon">.eight .wide .column .mobile .only</div>
-                            </div>
-                            <div class="two column mobile only row">
-                                <div class="column column-addon">.column .mobile .only</div>
-                                <div class="column column-addon">.column .mobile .only</div>
-                            </div>
-                            <div class="column mobile only row">
-                                <div class="eight wide column column-addon">.column .mobile .only</div>
-                            </div>
-                            <div class="three column computer tablet only row">
-                                <div class="column column-addon">.column .computer .tablet .only</div>
-                                <div class="column column-addon">.column .computer .tablet .only</div>
-                                <div class="column column-addon">.column .computer .tablet .only</div>
-                            </div>
-                        </div>
-                        <div class="ui section divider"></div>
-                        <h1 class="ui medium header">Offset, push, and pull resets</h1>
-                        <p>Semantic-UI's currently not support offset, push, pull for columns. Though, we can simply apply hidden attribute to a column for offsetting purpose.</p>
-                        <p class="m-top-10">In the case below the second column is hidden itself.</p>
-                        <div class="ui grid m-top-10">
-                            <div class="three column row">
-                                <div class="six wide column column-addon">.six .wide .column</div>
-                                <div class="four wide column column-addon hidden"></div>
-                                <div class="six wide column column-addon">.six .wide .column</div>
-                            </div>
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h4>Issues</h4>
+                                    <ul class="issue-list">
+                                    </ul>
+                                    <h4>Github Webhook Events</h4>
+                                    <ul class="github-event-list">
+                                    </ul>
+                            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
                         </div>
                     </div>
                 </div>
-            </main>
-        
-        
+            </div>
+            <!-- /#page-content-wrapper -->
 
+        </div>
+        <!-- /#wrapper -->
+        
+        <script src='https://cdn.firebase.com/js/client/2.0.4/firebase.js'></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
         <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -167,5 +95,34 @@
             r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
             ga('create','UA-XXXXX-X');ga('send','pageview');
         </script>
+        <script>
+          // get issues and github events from firebase
+          var issues = new Firebase('flickering-inferno-8924.firebaseIO.com/issues');
+          var githubEvents = new Firebase('flickering-inferno-8924.firebaseIO.com/github-events');
+          
+          // grab all items from the issues table on firebase and add them to a list
+          issues.once("value", function(snapshot) {
+            _.forEach(snapshot.val(), function(issue){
+              $('.issue-list').prepend("<li>#"+issue.number+": "+issue.title+"</li>");
+            });
+          }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+          });
+          
+          // grab all items from the issues table on firebase and add them to a list
+          // when new github events are added, add the new item to the github event list created on page load
+          githubEvents.on("child_added", function(snapshot) {
+            var githubEvent = snapshot.val();
+            $('.github-event-list').append("<li>Event Action: "+githubEvent.action+ " (for issue #"+githubEvent.issue.number+": "+githubEvent.issue.title+")</li>");
+          }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+          });
+
+          $("#menu-toggle").click(function(e) {
+              e.preventDefault();
+              $("#wrapper").toggleClass("toggled");
+          });
+        </script>
+
     </body>
 </html>

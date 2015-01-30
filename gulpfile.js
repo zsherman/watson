@@ -42,7 +42,6 @@ gulp.task('bower-css', function() {
     gulp.src(mainBowerFiles())
         .pipe(filter('*.css'))
         .pipe(order([
-            'semantic.css',
             '*'
         ]))
         .pipe(concat('vendor.css'))
