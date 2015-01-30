@@ -31,7 +31,7 @@ var LabelComponent = React.createClass({
           color: "#fff",
           background: "#" + label.color
         }
-        return <div className="label-wrapper" style={labelStyle}><a href={label.url} className="label">{label.name}</a></div>
+        return <span className="label-wrapper" style={labelStyle}><a href={label.url} className="label">{label.name}</a></span>
       });
     } else {
       labelList = <span>No Labels</span>
@@ -56,7 +56,7 @@ var columnMeta = [
   },
   {
     "columnName": "URL",
-    "visible": true
+    "visible": false
   },
   {
     "columnName": "Labels",
@@ -95,7 +95,7 @@ var Watson = React.createClass({
     firebaseIssues.once("value", function(snapshot) {
       _.forEach(snapshot.val(), function(issue){
         issueList.push({
-          "ID": issue.id,
+          "Repo": issue.repo,
           "Number": issue.number,
           "Title": issue.title,
           "Status": issue.state,
@@ -121,14 +121,13 @@ var Watson = React.createClass({
     firebaseIssues.on("child_added", function(snapshot) {
       var issue = snapshot.val();
       that.state.issueList.push({
-          "ID": issue.id,
+          "Repo": issue.repo,
           "Number": issue.number,
           "Title": issue.title,
           "Status": issue.state,
           "URL": issue.html_url,
           "Labels": issue.labels
       });
-      console.log(issue);
       that.forceUpdate();
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
@@ -141,7 +140,7 @@ var Watson = React.createClass({
                resultsPerPage={20}
                useGriddleStyles={false}
                tableClassName={"table table-striped table-bordered"}
-               columns={["ID", "Number", "Title", "Status", "Labels", "URL"]}
+               columns={["Repo", "Number", "Title", "Status", "Labels", "URL"]}
                data={this.state.issueList}
                results={this.state.issueList}
                columnMetadata={columnMeta}/>
