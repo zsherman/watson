@@ -12,8 +12,32 @@ var githubEvents = new Firebase('flickering-inferno-8924.firebaseIO.com/github-e
 
 var TitleComponent = React.createClass({
   render: function(){
-    var url = this.props.rowData.URL
+    var url = this.props.rowData.URL;
     return <a href={url}>{this.props.rowData.Title}</a>
+  }
+});
+
+var LabelComponent = React.createClass({
+  render: function(){
+    var labelList;
+    var hasLabels;
+    var labelArr = this.props.rowData.Labels;
+
+    hasLabels = typeof labelArr !== 'undefined' ? true : false;
+
+    if(hasLabels) {
+      labelList = labelArr.map(function(label) {
+        var labelStyle = {
+          color: "#fff",
+          background: "#" + label.color
+        }
+        return <div className="label-wrapper" style={labelStyle}><a href={label.url} className="label">{label.name}</a></div>
+      });
+    } else {
+      labelList = <span>No Labels</span>
+    }
+
+    return <span>{labelList}</span>
   }
 });
 
@@ -33,7 +57,13 @@ var columnMeta = [
   {
     "columnName": "URL",
     "visible": true
-  }
+  },
+  {
+    "columnName": "Labels",
+    "locked": false,
+    "visible": true,
+    "customComponent": LabelComponent
+  },
 ];
 
 var Watson = React.createClass({
@@ -69,7 +99,8 @@ var Watson = React.createClass({
           "Number": issue.number,
           "Title": issue.title,
           "Status": issue.state,
-          "URL": issue.html_url
+          "URL": issue.html_url,
+          "Labels": issue.labels
         });
       });
       that.setState({issueList: issueList});
@@ -94,8 +125,10 @@ var Watson = React.createClass({
           "Number": issue.number,
           "Title": issue.title,
           "Status": issue.state,
-          "URL": issue.html_url
+          "URL": issue.html_url,
+          "Labels": issue.labels
       });
+      console.log(issue);
       that.forceUpdate();
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
@@ -108,7 +141,8 @@ var Watson = React.createClass({
                resultsPerPage={20}
                useGriddleStyles={false}
                tableClassName={"table table-striped table-bordered"}
-               columns={["ID", "Number", "Title", "Status", "URL"]}
+               columns={["ID", "Number", "Title", "Status", "Labels", "URL"]}
+               data={this.state.issueList}
                results={this.state.issueList}
                columnMetadata={columnMeta}/>
     );
