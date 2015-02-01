@@ -1,14 +1,13 @@
 /** @jsx React.DOM */
 
 var React = window.React = require('react'),
+    IssueStore = require('./stores/IssueStore'),
     Griddle = require('griddle-react'),
     Timer = require("./ui/Timer"),
+    WatsonAPI = require("./utils/API")
     mountNode = document.getElementById("watson-app");
 
-
-// get issues and github events from firebase
-var firebaseIssues = new Firebase('flickering-inferno-8924.firebaseIO.com/issues');
-var githubEvents = new Firebase('flickering-inferno-8924.firebaseIO.com/github-events');
+WatsonAPI.getIssueData();
 
 var TitleComponent = React.createClass({
   render: function(){
@@ -66,50 +65,38 @@ var columnMeta = [
   },
 ];
 
+// Method to retrieve state from Stores
+function getWatsonState() {
+  return {
+    issueList: IssueStore.getIssues()
+  };
+}
+
 var Watson = React.createClass({
   displayName: 'Watson',
 
   propTypes: {
 
   },
-  
+
   mixins: [],
-  
+
   getInitialState: function() {
-    return {
-      issueList: []
-    }
+    return getWatsonState();
   },
 
   getDefaultProps: function() {
 
   },
-  
+
   componentWillMount: function() {
 
   },
 
   componentDidMount: function() {
-    var that = this;
-    var issueList = []
-    firebaseIssues.once("value", function(snapshot) {
-      _.forEach(snapshot.val(), function(issue){
-        issueList.push({
-          "Repo": issue.repo,
-          "Number": issue.number,
-          "Title": issue.title,
-          "Status": issue.state,
-          "URL": issue.html_url,
-          "Labels": issue.labels
-        });
-      });
-      that.setState({issueList: issueList});
-    }, function (errorObject) {
-      console.log("The read failed: " + errorObject.code);
-    });
     this.initializeEvents();
   },
-  
+
   componentWillUnmount: function() {
 
   },
@@ -118,22 +105,24 @@ var Watson = React.createClass({
     var that = this;
     // grab all items from the issues table on firebase and add them to a list
     // when new github events are added, add the new item to the github event list created on page load
+    var firebaseIssues = new Firebase('flickering-inferno-8924.firebaseIO.com/issues');
     firebaseIssues.on("child_added", function(snapshot) {
       var issue = snapshot.val();
+      // TODO WAIT FOR ONCE TO FINISH THIS IS BEING RUN EVERY TIME
       that.state.issueList.push({
           "Repo": issue.repo,
           "Number": issue.number,
           "Title": issue.title,
           "Status": issue.state,
           "URL": issue.html_url,
-          "Labels": issue.labels
+          "Labels": issue.labels !== undefined ? issue.labels : []
       });
       that.forceUpdate();
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
     });
   },
-  
+
   render: function() {
     return (
       <Griddle showFilter={true}
