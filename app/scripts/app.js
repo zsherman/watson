@@ -106,21 +106,23 @@ var Watson = React.createClass({
     // grab all items from the issues table on firebase and add them to a list
     // when new github events are added, add the new item to the github event list created on page load
     var firebaseIssues = new Firebase('flickering-inferno-8924.firebaseIO.com/issues');
-    firebaseIssues.on("child_added", function(snapshot) {
-      var issue = snapshot.val();
-      // TODO WAIT FOR ONCE TO FINISH THIS IS BEING RUN EVERY TIME
-      that.state.issueList.push({
-          "Repo": issue.repo,
-          "Number": issue.number,
-          "Title": issue.title,
-          "Status": issue.state,
-          "URL": issue.html_url,
-          "Labels": issue.labels !== undefined ? issue.labels : []
+    // TODO WAIT FOR ONCE IN API.JS TO FINISH THIS IS BEING RUN EVERY TIME
+    setTimeout(function() {
+      firebaseIssues.on("child_added", function(snapshot) {
+        var issue = snapshot.val();
+        that.state.issueList.push({
+            "Repo": issue.repo,
+            "Number": issue.number,
+            "Title": issue.title,
+            "Status": issue.state,
+            "URL": issue.html_url,
+            "Labels": issue.labels !== undefined ? issue.labels : []
+        });
+        that.forceUpdate();
+      }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
       });
-      that.forceUpdate();
-    }, function (errorObject) {
-      console.log("The read failed: " + errorObject.code);
-    });
+    }, 3000)
   },
 
   render: function() {
