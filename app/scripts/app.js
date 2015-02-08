@@ -3,9 +3,34 @@
 var React = window.React = require('react'),
     IssueStore = require('./stores/IssueStore'),
     Griddle = require('griddle-react'),
+    Github = require('github-api'),
     Timer = require("./ui/Timer"),
     WatsonAPI = require("./utils/API")
     mountNode = document.getElementById("watson-app");
+
+
+// https://developer.github.com/v3/oauth/#scopes
+var ref = new Firebase("https://flickering-inferno-8924.firebaseio.com");
+setTimeout(function() {
+  ref.authWithOAuthPopup("github", function(error, authData) {
+    if (error) {
+      console.log("Login Failed!", error);
+    } else {
+      window.github = new Github({
+        token: authData.github.accessToken,
+        auth: "oauth"
+      });
+      window.user = github.getUser();
+      user.repos(function(err, repos) {
+        console.log(repos);
+      });
+      console.log("Authenticated successfully with payload:", authData);
+    }
+  }, {
+    sessionOnly: true,
+    scope: "user,repo,read:org"
+  });
+}, 4000);
 
 WatsonAPI.getIssueData();
 
